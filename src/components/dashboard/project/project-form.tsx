@@ -46,19 +46,18 @@ export const ProjectForm = () => {
         }
       }
 
-      await axios.post('/api/projects', data, config);
-      console.log('Project created');
-
-      startEditor();
+      const res = await axios.post('/api/projects', data, config);
+      const project_id = res.data.project._id;
+      startEditor(project_id);
     }
     catch (error) {
       console.error("Failed to create project", error);
     }
   };
 
-  const startEditor = () => {
+  const startEditor = async (project_id:string) => {
     alert("Starting editor...");
-    router.push("/playground");
+    router.push(`/playground/${project_id}`);
   }
 
   return (

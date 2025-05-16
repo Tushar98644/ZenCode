@@ -30,9 +30,7 @@ export const GoogleSignInButton = () => {
       variant="outline"
       type="button"
       onClick={() =>
-        signIn("google",
-        { callbackUrl: "/dashboard" }
-        )
+        signIn("google")
       }
     >
       <FaGoogle className="mr-2 h-4 w-4" />
