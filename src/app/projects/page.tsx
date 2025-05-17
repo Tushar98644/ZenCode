@@ -41,7 +41,7 @@ const ProjectList = () => {
                         <h1 className="text-2xl font-semibold">No Projects Found</h1>
                     </div>
                 ) : (
-                    <div className={`p-12 grid grid-cols-3`}>
+                    <div className={`p-12 grid grid-cols-3 min-h-fit`}>
                         {projects.map((project) => (
                             <ProjectCard key={project._id} {...project} />
                         ))}

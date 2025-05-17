@@ -4,11 +4,9 @@ import { connectToDb } from "@/lib/mongoose";
 
 export const POST = async (req: Request) => {
   try {
-    await connectToDb();
-
     const body = await req.json();
-    const { title, description, techstack,user } = body;
-    
+    const { title, description, techstack, user } = body;
+
     if (!title || !description || !techstack || !user) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -20,7 +18,7 @@ export const POST = async (req: Request) => {
       title,
       description,
       techstack,
-      user
+      user,
     });
 
     return NextResponse.json(
@@ -32,15 +30,26 @@ export const POST = async (req: Request) => {
   }
 };
 
-
 export const GET = async (req: Request) => {
   try {
     const { searchParams } = new URL(req.url);
     const user = searchParams.get("user");
-    const projects = await Project.find({user});
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "User parameter is required" },
+        { status: 400 }
+      );
+    }
+
+    await connectToDb();
+    const projects = await Project.find({ user });
 
     return NextResponse.json({ projects }, { status: 200 });
   } catch (err) {
-    return NextResponse.json({ err: "Failed to fetch projects" }, { status: 500 });
+    return NextResponse.json(
+      { err: "Failed to fetch projects" },
+      { status: 500 }
+    );
   }
-}
+};

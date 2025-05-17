@@ -34,12 +34,7 @@ export const ProjectForm = () => {
     try {
       e.preventDefault();
       const user = session?.user?.email;
-      const data = {
-        title,
-        description,
-        techstack,
-        user
-      }
+      const data = { title, description, techstack, user }
       const config = {
         headers: {
           'Content-Type': 'application/json'
